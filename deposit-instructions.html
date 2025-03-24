@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Instructions - InvestWise</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .instruction-container {
+            min-height: calc(100vh - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .instruction-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .instruction-box h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .amount-display {
+            font-size: 2rem;
+            color: #3498db;
+            margin: 1.5rem 0;
+            font-weight: bold;
+        }
+
+        .phone-number {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin: 1.5rem 0;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .instruction-text {
+            color: #666;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+        }
+
+        .copy-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            transition: background 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: #2980b9;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-button:hover {
+            color: #3498db;
+        }
+
+        .payment-logo {
+            width: 200px;
+            margin: 1rem auto;
+        }
+
+        .payment-logo img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">InvestWise</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="instruction-container">
+        <div class="instruction-box">
+            <h2>Deposit Instructions</h2>
+            <div class="payment-logo">
+                <img src="easypaisa.jpg" alt="EasyPaisa">
+            </div>
+            <p class="instruction-text">Please send the following amount:</p>
+            <div class="amount-display" id="deposit-amount-display"></div>
+            <p class="instruction-text">to this number:</p>
+            <div class="phone-number">03083869891</div>
+            <button class="copy-button" onclick="copyNumber()">
+                <i class="fas fa-copy"></i>
+                Copy Number
+            </button>
+            <p class="instruction-text">
+                After sending the payment, your deposit will be processed<br>
+                and added to your account balance.
+            </p>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Get amount from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = parseFloat(urlParams.get('amount'));
+        
+        // Display amount
+        if (amount) {
+            document.getElementById('deposit-amount-display').textContent = 
+                `Rs. ${amount.toLocaleString('en-PK')}`;
+        }
+
+        // Copy number function
+        function copyNumber() {
+            navigator.clipboard.writeText('03083869891')
+                .then(() => {
+                    const button = document.querySelector('.copy-button');
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-copy"></i> Copy Number';
+                    }, 2000);
+                });
+        }
+    </script>
+</body>
+</html> 

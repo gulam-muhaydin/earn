@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestWise - Smart Investing Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">InvestWise</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="order-status.html"><i class="fas fa-tasks"></i> Payment Status</a></li>
+            <li><a href="#plans">Plans</a></li>
+            <li><a href="#income">Income</a></li>
+            <li class="auth-links">
+                <a href="login.html" class="login-link">Login</a>
+                <a href="login.html" class="signup-link">Sign Up</a>
+            </li>
+            <li class="user-info" style="display: none;">
+                <span class="user-phone"></span>
+                <button class="logout-button">Logout</button>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Smart Investing for Your Future</h1>
+            <p>Make informed decisions with real-time market data and expert insights</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <section id="plans" class="plans">
+        <h2>Investment Plans</h2>
+        <p class="section-subtitle">Choose the perfect plan for your investment journey</p>
+        <div class="plan-cards">
+            <div class="plan-card starter">
+                <span class="duration-badge">100 Days</span>
+                <div class="plan-header">
+                    <h3>Starter</h3>
+                    <p class="price">Rs. 500</p>
+                    <p class="description">Perfect for beginners</p>
+                </div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Daily income: Rs. 150</li>
+                </ul>
+                <button class="select-plan">
+                    <i class="fas fa-arrow-right"></i>
+                    Invest Rs. 500
+                </button>
+            </div>
+
+            <div class="plan-card professional">
+                <span class="duration-badge">100 Days</span>
+                <div class="plan-header">
+                    <h3>Professional</h3>
+                    <p class="price">Rs. 5,000</p>
+                    <p class="description">For serious investors</p>
+                </div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Daily income: Rs. 1,800</li>
+                </ul>
+                <button class="select-plan">
+                    <i class="fas fa-arrow-right"></i>
+                    Invest Rs. 5,000
+                </button>
+            </div>
+
+            <div class="plan-card enterprise">
+                <span class="duration-badge">100 Days</span>
+                <div class="plan-header">
+                    <h3>Enterprise</h3>
+                    <p class="price">Rs. 7,000</p>
+                    <p class="description">For professional traders</p>
+                </div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Daily income: Rs. 2,500</li>
+                </ul>
+                <button class="select-plan">
+                    <i class="fas fa-arrow-right"></i>
+                    Invest Rs. 7,000
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="income" class="income-section">
+        <h2>Daily Income & Withdrawals</h2>
+        <p class="section-subtitle">Track your earnings and manage withdrawals</p>
+        
+        <div class="income-container">
+            <div class="transaction-actions">
+                <div class="deposit-section" id="deposit">
+                    <h2>Make a Deposit</h2>
+                    <div class="scroll-indicator">
+                        <div class="scroll-line"></div>
+                    </div>
+                    <form id="deposit-form">
+                        <div class="form-group">
+                            <label for="deposit-amount">Amount (Rs.)</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-rupee-sign"></i>
+                                <input type="number" id="deposit-amount" required min="500" placeholder="Enter amount (min: Rs. 500)">
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-arrow-right"></i>
+                            Proceed to Payment
+                        </button>
+                    </form>
+                </div>
+
+                <div class="withdraw-section">
+                    <h2>Withdraw Funds</h2>
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                            <label for="withdraw-amount">Amount (Rs.)</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-rupee-sign"></i>
+                                <input type="number" id="withdraw-amount" required min="500" placeholder="Enter amount (min: Rs. 500)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Payment Method</label>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="withdraw-method" value="easypaisa" checked>
+                                    <div class="payment-method-name">
+                                        <img src="easypaisa.jpg" alt="EasyPaisa" class="payment-logo-img">
+                                        <span>EasyPaisa</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="withdraw-method" value="jazzcash">
+                                    <div class="payment-method-name">
+                                        <img src="jazzcash.png" alt="JazzCash" class="payment-logo-img">
+                                        <span>JazzCash</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="withdraw-phone">Phone Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="withdraw-phone" pattern="03[0-9]{9}" required placeholder="03XX-XXXXXXX">
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Request Withdrawal
+                        </button>
+                    </form>
+                    <div class="status-link">
+                        <a href="order-status.html" class="track-status-button">
+                            <i class="fas fa-chart-line"></i>
+                            Track Your Payment Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>InvestWise</h3>
+                <p>Smart investing for everyone</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#plans">Plans</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 InvestWise. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

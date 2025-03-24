@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status - InvestWise</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .status-container {
+            min-height: calc(100vh - 60px);
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .status-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .status-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            height: fit-content;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .section-header h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .section-header .count {
+            background: #eee;
+            color: #666;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .status-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-list {
+            margin: 1rem 0;
+        }
+
+        .status-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .status-item.pending {
+            border-left: 4px solid #e67e22;
+        }
+
+        .status-item.success {
+            border-left: 4px solid #27ae60;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-badge.pending {
+            background: #fff3e0;
+            color: #e67e22;
+        }
+
+        .status-badge.success {
+            background: #e3f2e6;
+            color: #27ae60;
+        }
+
+        .status-details {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .status-details p {
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-details strong {
+            color: #34495e;
+        }
+
+        .status-time {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        .auto-refresh {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .status-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .transaction-type {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .payment-method {
+            display: inline-flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .payment-method img {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">InvestWise</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="status-container">
+        <div class="status-header">
+            <h2>Payment Status</h2>
+            <p>Track all your payment requests</p>
+        </div>
+
+        <div class="status-sections">
+            <!-- Pending Payments Section -->
+            <div class="status-box">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-clock" style="color: #e67e22;"></i>
+                        Pending Payments
+                    </h3>
+                    <span class="count" id="pendingCount">0</span>
+                </div>
+                <div class="status-list" id="pendingList">
+                    <!-- Pending items will be added here -->
+                </div>
+            </div>
+
+            <!-- Successful Payments Section -->
+            <div class="status-box">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                        Successful Payments
+                    </h3>
+                    <span class="count" id="successCount">0</span>
+                </div>
+                <div class="status-list" id="successList">
+                    <!-- Successful items will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width: 300px; margin: 2rem auto;">
+            <button class="refresh-button" onclick="refreshStatus()">
+                <i class="fas fa-sync-alt"></i>
+                Refresh Status
+            </button>
+            <div class="auto-refresh">
+                Auto-refreshes every 30 seconds
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to format date
+        function formatDate(date) {
+            return new Date(date).toLocaleString();
+        }
+
+        // Function to create a status item
+        function createStatusItem(order) {
+            const transactionIcon = order.type === 'deposit' ? 'fa-arrow-down' : 'fa-arrow-up';
+            const transactionColor = order.type === 'deposit' ? '#2ecc71' : '#e67e22';
+            
+            return `
+                <div class="status-item ${order.status.toLowerCase()}">
+                    <div class="status-badge ${order.status.toLowerCase()}">
+                        <i class="fas fa-${order.status === 'Pending' ? 'clock' : 'check-circle'}"></i>
+                        ${order.status}
+                    </div>
+                    <div class="transaction-type" style="color: ${transactionColor}; margin-bottom: 0.5rem;">
+                        <i class="fas ${transactionIcon}"></i>
+                        ${order.type === 'deposit' ? 'Deposit' : 'Withdrawal'}
+                    </div>
+                    <div class="status-details">
+                        <p><strong>Amount:</strong> Rs. ${order.amount.toLocaleString('en-PK')}</p>
+                        <p>
+                            <strong>Payment Method:</strong>
+                            <span class="payment-method">
+                                <img src="${order.paymentMethod === 'easypaisa' ? 'easypaisa.jpg' : 'jazzcash.png'}" 
+                                     alt="${order.paymentMethod === 'easypaisa' ? 'EasyPaisa' : 'JazzCash'}"
+                                     style="height: 20px; width: auto; vertical-align: middle; margin-right: 5px;">
+                                ${order.paymentMethod === 'easypaisa' ? 'EasyPaisa' : 'JazzCash'}
+                            </span>
+                        </p>
+                        <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
+                        <p><strong>Order ID:</strong> ${order.id}</p>
+                    </div>
+                    <div class="status-time">
+                        <i class="far fa-calendar-alt"></i>
+                        ${formatDate(order.date)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create empty state message
+        function createEmptyState(message) {
+            return `
+                <div class="no-orders">
+                    <i class="fas fa-inbox fa-2x" style="color: #ddd; margin-bottom: 1rem;"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Function to refresh status
+        function refreshStatus() {
+            const orders = JSON.parse(localStorage.getItem('withdrawalOrders') || '[]');
+            const pendingOrders = orders.filter(order => order.status === 'Pending');
+            const successfulOrders = orders.filter(order => order.status === 'Success');
+
+            // Update pending section
+            const pendingList = document.getElementById('pendingList');
+            document.getElementById('pendingCount').textContent = pendingOrders.length;
+            
+            if (pendingOrders.length === 0) {
+                pendingList.innerHTML = createEmptyState('No pending payments');
+            } else {
+                pendingList.innerHTML = pendingOrders.map(order => createStatusItem(order)).join('');
+            }
+
+            // Update successful section
+            const successList = document.getElementById('successList');
+            document.getElementById('successCount').textContent = successfulOrders.length;
+            
+            if (successfulOrders.length === 0) {
+                successList.innerHTML = createEmptyState('No successful payments yet');
+            } else {
+                successList.innerHTML = successfulOrders.map(order => createStatusItem(order)).join('');
+            }
+        }
+
+        // Initialize and set up auto-refresh
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshStatus();
+            setInterval(refreshStatus, 30000); // Refresh every 30 seconds
+        });
+    </script>
+</body>
+</html> 
